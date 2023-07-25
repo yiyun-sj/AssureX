@@ -1,17 +1,14 @@
-import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
-  logo: <span>My Project</span>,
+  logo: <strong>AssureX</strong>,
   project: {
-    link: 'https://github.com/shuding/nextra-docs-template',
+    link: 'https://github.com/yiyun-sj/assurex',
   },
-  chat: {
-    link: 'https://discord.com',
-  },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  darkMode: true,
+  docsRepositoryBase: 'https://github.com/yiyun-sj/assurex',
   footer: {
-    text: 'Nextra Docs Template',
+    text: 'AssureX Docs',
   },
 }
 
