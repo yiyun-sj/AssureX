@@ -1,0 +1,20 @@
+# GetById
+
+The Plan GetById method retrieves a plan given its plan id.
+
+```ts filename="Request Object" {/* {1-3} */} copy
+type Request = {
+  id: string
+}
+```
+
+```ts filename="Response Object" {/* {1-3} */} copy
+type Response = {
+  id: number
+  email: string
+  date: string
+  principal: number
+  base: number
+  interest: number
+}
+```

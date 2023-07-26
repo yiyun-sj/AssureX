@@ -1,0 +1,19 @@
+# GetByPlanId
+
+The Payment GetByPlanId method retrieves an array of payments made to a given plan.
+
+```ts filename="Request Object" {/* {1-3} */} copy
+type Request = {
+  id: string
+}
+```
+
+```ts filename="Response Object" {/* {1-3} */} copy
+type Response = {
+  id: number
+  pid: number
+  date: string
+  from: string
+  amount: number
+}[]
+```

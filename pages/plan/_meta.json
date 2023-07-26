@@ -1,0 +1,6 @@
+{
+  "getbyid": "GetById",
+  "getbyemail": "GetByEmail",
+  "request": "Request",
+  "create": "Create"
+}
