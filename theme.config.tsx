@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
@@ -9,6 +10,14 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/yiyun-sj/assurex',
   footer: {
     text: 'AssureX Docs',
+  },
+  useNextSeoProps() {
+    const { asPath } = useRouter()
+    if (asPath !== '/') {
+      return {
+        titleTemplate: '%s - AssureX Docs',
+      }
+    }
   },
 }
 
