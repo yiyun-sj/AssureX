@@ -8,11 +8,12 @@ GET /api/payment/:pid
 
 **Response Object \<array\>**
 
-| field       |  type  |                            description |
-| :---------- | :----: | -------------------------------------: |
-| id          | number |                      unique identifier |
-| pid         | number |           id of the corresponding plan |
-| date        | string |  ISO 8601 date of payment (YYYY-MM-DD) |
-| origin      | string |  address of account that was paid from |
-| destination | string |    address of account that was paid to |
-| amount      | number | amount paid by account in this payment |
+| field       |  type  |                              description |
+| :---------- | :----: | ---------------------------------------: |
+| id          | number |                        unique identifier |
+| pid         | number |             id of the corresponding plan |
+| email       | string | email of the user that is the plan owner |
+| date        | string |    ISO 8601 date of payment (YYYY-MM-DD) |
+| origin      | string |    address of account that was paid from |
+| destination | string |      address of account that was paid to |
+| amount      | number |   amount paid by account in this payment |

@@ -39,6 +39,7 @@ async function dbQuery({
   for (let i = 1; i <= installments; i++) {
     values.push([
       (hdr as ResultSetHeader).insertId,
+      email,
       moment(date).add(i, 'M').format('YYYY-MM-DD'),
       base,
       base,
@@ -46,7 +47,7 @@ async function dbQuery({
     ])
   }
   await connection.query(
-    'INSERT INTO `invoices` (pid, due, amnt_due, total, fulfilled) VALUES ?',
+    'INSERT INTO `invoices` (pid, email, due, amnt_due, total, fulfilled) VALUES ?',
     [values]
   )
   connection.end()

@@ -7,6 +7,7 @@ interface ReqData {
 interface ResData {
   id: number
   pid: number
+  email: string
   date: string
   origin: string
   destination: string

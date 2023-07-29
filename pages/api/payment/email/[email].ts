@@ -2,22 +2,23 @@ import { createConnection } from 'mysql2/promise'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 interface ReqData {
-  pid: string
+  email: string
 }
 interface ResData {
   id: number
   pid: number
-  due: string
-  amnt_due: number
-  total: number
-  fulfilled: boolean
+  email: string
+  date: string
+  origin: string
+  destination: string
+  amount: number
 }
 
-async function dbQuery({ pid }: ReqData) {
+async function dbQuery({ email }: ReqData) {
   const connection = await createConnection(process.env.DATABASE_URL)
   const [data] = await connection.query(
-    'SELECT * FROM `invoices` WHERE `pid` = ?',
-    [pid]
+    'SELECT * FROM `payments` WHERE `email` = ?',
+    [email]
   )
   connection.end()
   return data
@@ -30,7 +31,7 @@ export default function handler(
   const { method, query } = req
   switch (method) {
     case 'GET':
-      dbQuery({ pid: query.pid as string }).then((data) => {
+      dbQuery({ email: query.email as string }).then((data) => {
         res.status(200).json(data as ResData[])
       })
       break

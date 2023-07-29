@@ -12,6 +12,7 @@ GET /api/invoice/:pid
 | :-------- | :-----: | ---------------------------------------: |
 | id        | number  |                        unique identifier |
 | pid       | number  |             id of the corresponding plan |
+| email     | string  | email of the user that is the plan owner |
 | due       | string  | ISO 8601 date to be paid by (YYYY-MM-DD) |
 | amnt_due  | number  |            (total - amount already paid) |
 | total     | number  |              amount to be paid this term |
