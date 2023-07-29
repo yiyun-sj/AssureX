@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const periods = [3, 6, 9, 12]
@@ -7,7 +8,7 @@ interface ReqData {
 }
 interface ResData {
   email: string
-  date: Date
+  date: string
   principal: number
   base: number
   interest: number
@@ -25,7 +26,7 @@ export default function handler(
       const resData: ResData[] = periods.map((period) => {
         return {
           email,
-          date: new Date(),
+          date: moment().format('YYYY-MM-DD'),
           principal,
           base: principal / period,
           interest: 0,

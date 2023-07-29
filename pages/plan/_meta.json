@@ -1,6 +1,6 @@
 {
-  "getbyid": "GetById",
-  "getbyemail": "GetByEmail",
+  "getbyid": "Get :id",
+  "getbyemail": "Get :email",
   "request": "Request",
   "create": "Create"
 }

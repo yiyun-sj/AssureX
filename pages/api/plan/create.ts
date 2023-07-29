@@ -16,7 +16,7 @@ interface ResData {
   id: number
   email: string
   name: string
-  date: Date
+  date: string
   principal: number
   interest: number
 }
@@ -39,7 +39,7 @@ async function dbQuery({
   for (let i = 1; i <= installments; i++) {
     values.push([
       (hdr as ResultSetHeader).insertId,
-      moment(date).add(i, 'M').toDate(),
+      moment(date).add(i, 'M').format('YYYY-MM-DD'),
       base,
       base,
       0,
@@ -54,7 +54,7 @@ async function dbQuery({
     id: (hdr as ResultSetHeader).insertId,
     email,
     name,
-    date: moment(date).toDate(),
+    date: moment(date).format('YYYY-MM-DD'),
     principal,
     interest,
   }

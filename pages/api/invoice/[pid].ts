@@ -7,7 +7,7 @@ interface ReqData {
 interface ResData {
   id: number
   pid: number
-  due: Date
+  due: string
   amnt_due: number
   total: number
   fulfilled: boolean

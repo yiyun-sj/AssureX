@@ -7,7 +7,7 @@ interface ReqData {
 interface ResData {
   id: number
   pid: number
-  date: Date
+  date: string
   origin: string
   destination: string
   amount: number

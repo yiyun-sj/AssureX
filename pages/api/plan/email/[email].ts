@@ -8,7 +8,7 @@ interface ResData {
   id: number
   email: string
   name: string
-  date: Date
+  date: string
   principal: number
   interest: number
 }
