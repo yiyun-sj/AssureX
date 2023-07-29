@@ -1,9 +1,11 @@
 # Get
 
-The Payment Get method retrieves an array of payments made to a given plan.
+The Payment Get method retrieves an array of payments either by
+plan id (pid) or the plan owner's email.
 
 ```bash filename="Endpoints" copy
-GET /api/payment/:pid
+GET /api/payment/plan/:pid
+GET /api/payment/email/:email
 ```
 
 **Response Object \<array\>**

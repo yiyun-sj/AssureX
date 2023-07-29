@@ -1,9 +1,11 @@
 # Get
 
-The Invoice Get method retrieves an array of invoices (one for each month of repayment) of a given Plan.
+The Invoice Get method retrieves an array of invoices (one for each month of repayment)
+either by plan id (pid) or the email of the plan owner.
 
 ```bash filename="Endpoints" copy
-GET /api/invoice/:pid
+GET /api/invoice/plan/:pid
+GET /api/invoice/email/:email
 ```
 
 **Response Object \<array\>**
