@@ -13,28 +13,6 @@ interface ResData {
   fulfilled: boolean
 }
 
-/* connection.query result:
-[
-  [
-    {
-      id: 1,
-      pid: 0,
-      due: 2023-07-28T04:00:00.000Z,
-      amnt_due: 1,
-      total: 1,
-      fulfilled: 0
-    }
-  ],
-  [
-    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT NUM,
-    `pid` INT NOT NULL NUM,
-    `due` DATE(10),
-    `amnt_due` FLOAT NUM,
-    `total` FLOAT NUM,
-    `fulfilled` TINYINT(1) NUM
-  ]
-] */
-
 async function dbQuery({ pid }: ReqData) {
   const connection = await createConnection(process.env.DATABASE_URL)
   const [data] = await connection.query(
