@@ -5,7 +5,7 @@ const withNextra = nextra({
   themeConfig: './theme.config.tsx',
 })
 
-module.exports = withNextra({
+export default withNextra({
   headers: async () => [
     {
       // matching all API routes
