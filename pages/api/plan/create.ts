@@ -4,8 +4,8 @@ import { ResultSetHeader, createConnection } from 'mysql2/promise'
 import { NextApiRequest, NextApiResponse } from 'next'
 interface ReqData {
   email: string
-  name: string
   date: string
+  name: string
   principal: number
   base: number
   interest: number
@@ -15,9 +15,9 @@ interface ReqData {
 interface ResData {
   id: number
   email: string
+  name: string
   date: Date
   principal: number
-  base: number
   interest: number
 }
 
@@ -32,8 +32,8 @@ async function dbQuery({
 }: ReqData) {
   const connection = await createConnection(process.env.DATABASE_URL)
   const [hdr] = await connection.query(
-    'INSERT INTO `plans` (email, name, date, principal, base, interest) VALUES ?',
-    [[[email, name, moment(date).toDate(), principal, base, interest]]]
+    'INSERT INTO `plans` (email, name, date, principal, interest) VALUES ?',
+    [[[email, name, moment(date).toDate(), principal, interest]]]
   )
   let values = []
   for (let i = 1; i <= installments; i++) {
@@ -53,9 +53,9 @@ async function dbQuery({
   return {
     id: (hdr as ResultSetHeader).insertId,
     email,
+    name,
     date: moment(date).toDate(),
     principal,
-    base,
     interest,
   }
 }

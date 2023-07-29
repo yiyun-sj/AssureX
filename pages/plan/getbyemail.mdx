@@ -6,13 +6,13 @@ The Plan GetByEmail method retrieves an array of plans given an email address us
 GET /api/plan/email/:email
 ```
 
-```ts filename="Response Object" {/* {1-3} */} copy
-type Response = {
-  id: number
-  email: string
-  date: string
-  principal: number
-  base: number
-  interest: number
-}[]
-```
+**Response Object \<array\>**
+
+| field     |  type  |                               description |
+| :-------- | :----: | ----------------------------------------: |
+| id        | number |                         unique identifier |
+| email     | string |  email of the user that created this plan |
+| name      | string |                         name for the plan |
+| date      | string |    ISO 8601 date of creation (YYYY-MM-DD) |
+| principal | number |         total amount borrowed at creation |
+| interest  | number | interest to be paid as a percentage (APR) |

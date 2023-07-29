@@ -6,13 +6,13 @@ The Invoice Get method retrieves an array of invoices (one for each month of rep
 GET /api/invoice/:pid
 ```
 
-```ts filename="Response Object" {/* {1-3} */} copy
-type Response = {
-  id: number
-  pid: number
-  due: string
-  amnt_due: number
-  total: number
-  fulfilled: boolean
-}[]
-```
+**Response Object \<array\>**
+
+| field     |  type   |                              description |
+| :-------- | :-----: | ---------------------------------------: |
+| id        | number  |                        unique identifier |
+| pid       | number  |             id of the corresponding plan |
+| due       | string  | ISO 8601 date to be paid by (YYYY-MM-DD) |
+| amnt_due  | number  |            (total - amount already paid) |
+| total     | number  |              amount to be paid this term |
+| fulfilled | boolean |            if this invoice has been paid |

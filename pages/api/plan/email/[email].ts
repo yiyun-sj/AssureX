@@ -10,7 +10,6 @@ interface ResData {
   name: string
   date: Date
   principal: number
-  base: number
   interest: number
 }
 

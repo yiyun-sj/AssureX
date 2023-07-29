@@ -9,19 +9,20 @@ To achieve this, the client will called the Request method, which will return an
 POST /api/plan/request
 ```
 
-```ts filename="Request Object" {/* {1-3} */} copy
-type Request = {
-  email: string
-}
-```
+**Request Object**
 
-```ts filename="Response Object" {/* {1-3} */} copy
-type Response = {
-  email: string
-  date: string
-  principal: number
-  base: number
-  interest: number
-  installments: number
-}[]
-```
+| field     |  type  |                                     description |
+| :-------- | :----: | ----------------------------------------------: |
+| email     | string | email of the user that is requesting for a plan |
+| principal | number |                      total amount requested for |
+
+**Response Object \<array\>**
+
+| field        |  type  |                               description |
+| :----------- | :----: | ----------------------------------------: |
+| email        | number |  email of the user that created this plan |
+| date         | string |    ISO 8601 date of creation (YYYY-MM-DD) |
+| principal    | string |         total amount borrowed at creation |
+| base         | string |               amount to be paid per month |
+| interest     | number | interest to be paid as a percentage (APR) |
+| installments | number |      number of months to repay the amount |
