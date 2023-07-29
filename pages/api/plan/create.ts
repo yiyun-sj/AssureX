@@ -1,10 +1,11 @@
 import moment from 'moment'
 import 'mysql2'
-import { createConnection } from 'mysql2/promise'
+import { ResultSetHeader, createConnection } from 'mysql2/promise'
 import { NextApiRequest, NextApiResponse } from 'next'
 interface ReqData {
   email: string
-  date: Date
+  name: string
+  date: string
   principal: number
   base: number
   interest: number
@@ -12,17 +13,17 @@ interface ReqData {
 }
 
 interface ResData {
-  id: string
+  id: number
   email: string
   date: Date
   principal: number
   base: number
   interest: number
-  installments: number
 }
 
 async function dbQuery({
   email,
+  name,
   date,
   principal,
   base,
@@ -30,20 +31,33 @@ async function dbQuery({
   installments,
 }: ReqData) {
   const connection = await createConnection(process.env.DATABASE_URL)
-  const [data] = await connection.query(
-    'INSERT INTO `plans` (email, date, principal, base, interest, installments) VALUES ?',
-    [email, date, principal, base, interest, installments]
+  const [hdr] = await connection.query(
+    'INSERT INTO `plans` (email, name, date, principal, base, interest) VALUES ?',
+    [[[email, name, moment(date).toDate(), principal, base, interest]]]
   )
   let values = []
   for (let i = 1; i <= installments; i++) {
-    values.push([data[0].id, moment(date).add(i, 'M').toDate(), base, base, 0])
+    values.push([
+      (hdr as ResultSetHeader).insertId,
+      moment(date).add(i, 'M').toDate(),
+      base,
+      base,
+      0,
+    ])
   }
   await connection.query(
     'INSERT INTO `invoices` (pid, due, amnt_due, total, fulfilled) VALUES ?',
-    values
+    [values]
   )
   connection.end()
-  return data[0] as ResData
+  return {
+    id: (hdr as ResultSetHeader).insertId,
+    email,
+    date: moment(date).toDate(),
+    principal,
+    base,
+    interest,
+  }
 }
 
 function isToday(date: Date) {
@@ -61,7 +75,7 @@ export default function handler(
 ) {
   const { method, body } = req
   const { date } = body as ReqData
-  if (!isToday(date)) {
+  if (!isToday(new Date(date))) {
     res.status(400).end(`Date ${date} has expired`)
     return
   }
@@ -70,7 +84,6 @@ export default function handler(
       dbQuery(body).then((data) => {
         res.status(200).json(data)
       })
-      res.status(200)
       break
     default:
       res.setHeader('Allow', ['POST'])
