@@ -1,3 +1,4 @@
+import moment from 'moment'
 import 'mysql2'
 import { createConnection } from 'mysql2/promise'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -30,12 +31,19 @@ async function dbQuery({
 }: ReqData) {
   const connection = await createConnection(process.env.DATABASE_URL)
   const [data] = await connection.query(
-    'INSERT INTO `plans` (email, date, principal base, interest, installments) VALUES \
-    (?, ?, ?, ?, ?, ?)',
+    'INSERT INTO `plans` (email, date, principal, base, interest, installments) VALUES ?',
     [email, date, principal, base, interest, installments]
   )
+  let values = []
+  for (let i = 1; i <= installments; i++) {
+    values.push([data[0].id, moment(date).add(i, 'M').toDate(), base, base, 0])
+  }
+  await connection.query(
+    'INSERT INTO `invoices` (pid, due, amnt_due, total, fulfilled) VALUES ?',
+    values
+  )
   connection.end()
-  return data[0]
+  return data[0] as ResData
 }
 
 function isToday(date: Date) {
@@ -60,7 +68,7 @@ export default function handler(
   switch (method) {
     case 'POST':
       dbQuery(body).then((data) => {
-        res.status(200).json(data as ResData)
+        res.status(200).json(data)
       })
       res.status(200)
       break
