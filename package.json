@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
+    "@types/nodemailer": "^6.4.9",
     "moment": "^2.29.4",
     "mysql2": "^3.5.2",
     "next": "^13.0.6",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
+    "nodemailer": "^6.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "xrpl": "^2.9.1"
