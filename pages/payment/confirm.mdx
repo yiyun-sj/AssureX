@@ -1,0 +1,27 @@
+# Confirm
+
+After a client makes a payment, they will call the Confirm method to let us verify that they have paid.
+
+```bash filename="Endpoints" copy
+POST /api/payment/confirm
+```
+
+**Request Object**
+
+| field |  type  |                              description |
+| :---- | :----: | ---------------------------------------: |
+| hash  | string |                     XRP transaction hash |
+| email | string | email of the user that created this plan |
+| pid   | number |             id of the corresponding plan |
+
+**Response Object**
+
+| field       |  type  |                              description |
+| :---------- | :----: | ---------------------------------------: |
+| id          | number |                        unique identifier |
+| pid         | number |             id of the corresponding plan |
+| email       | string | email of the user that is the plan owner |
+| date        | string |    ISO 8601 date of payment (YYYY-MM-DD) |
+| origin      | string |    address of account that was paid from |
+| destination | string |      address of account that was paid to |
+| amount      | number |   amount paid by account in this payment |
