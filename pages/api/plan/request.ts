@@ -4,10 +4,12 @@ import { NextApiRequest, NextApiResponse } from 'next'
 const periods = [3, 6, 9, 12]
 interface ReqData {
   email: string
+  name: string
   principal: number
 }
 interface ResData {
   email: string
+  name: string
   date: string
   principal: number
   base: number
@@ -22,10 +24,11 @@ export default function handler(
   const { method } = req
   switch (method) {
     case 'POST':
-      const { email, principal } = req.body as ReqData
+      const { email, principal, name } = req.body as ReqData
       const resData: ResData[] = periods.map((period) => {
         return {
           email,
+          name,
           date: moment().format('YYYY-MM-DD'),
           principal,
           base: principal / period,

@@ -14,6 +14,7 @@ POST /api/plan/request
 | field     |  type  |                                     description |
 | :-------- | :----: | ----------------------------------------------: |
 | email     | string | email of the user that is requesting for a plan |
+| name      | string |                               name for the plan |
 | principal | number |                      total amount requested for |
 
 **Response Object \<array\>**
@@ -21,6 +22,7 @@ POST /api/plan/request
 | field        |  type  |                               description |
 | :----------- | :----: | ----------------------------------------: |
 | email        | number |  email of the user that created this plan |
+| name         | string |                         name for the plan |
 | date         | string |    ISO 8601 date of creation (YYYY-MM-DD) |
 | principal    | string |         total amount borrowed at creation |
 | base         | string |               amount to be paid per month |
