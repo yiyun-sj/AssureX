@@ -47,23 +47,10 @@ async function sendEmail(invoice: InvoiceData) {
       pass: process.env.GMAIL_PASS,
     },
   })
-
-  const info = await transporter.sendMail(message)
-  return {
-    success: info.accepted.length != 0,
-  }
+  await transporter.sendMail(message)
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { method, body } = req
-  if (method != 'POST') {
-    res.setHeader('Allow', ['POST'])
-    res.status(405).end(`Method ${method} Not Allowed`)
-    return
-  }
+export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const invoices = await dbQuery()
   invoices.forEach(sendEmail)
   res.status(200)
