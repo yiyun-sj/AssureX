@@ -36,6 +36,8 @@ interface InvoiceData {
   fulfilled: boolean
 }
 
+const secs = moment('2000-01-01').unix() - moment.unix(0).unix()
+
 async function dbQuery(
   { date, origin, destination, amount }: PayData,
   { email, pid }: ReqData
@@ -87,14 +89,14 @@ async function confirmPayment({ hash }: ReqData) {
   })
   client.disconnect()
   return !(
-    response.status === 'success' &&
+    response.result &&
     response.result.TransactionType == 'Payment' &&
     response.result.Destination === wallet.address &&
     typeof response.result.Amount === 'string'
   )
     ? false
     : {
-        date: moment(response.result.date).format('YYYY-MM-DD'),
+        date: moment.unix(response.result.date + secs).format('YYYY-MM-DD'),
         origin: response.result.Account,
         destination: wallet.address,
         amount: Number(response.result.Amount),
