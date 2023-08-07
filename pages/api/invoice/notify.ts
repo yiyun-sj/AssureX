@@ -4,6 +4,7 @@ import { createConnection } from 'mysql2/promise'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { createTransport } from 'nodemailer'
 import Mail from 'nodemailer/lib/mailer'
+import { notifyHtml, notifyText } from '../../../email/notify'
 
 interface InvoiceData {
   id: number
@@ -34,9 +35,9 @@ async function sendEmail(invoice: InvoiceData) {
       address: 'info@assurex.com',
     },
     to: invoice.email,
-    subject: `Reminder: Your AssureX Payment is Due in 5 Day`,
-    text: `Reminder that your AssureX payment of ${invoice.amnt_due} is due in 5 days`,
-    // html: '',
+    subject: `Reminder: Your AssureX Payment is Due Soon`,
+    text: notifyText(invoice),
+    html: notifyHtml(invoice),
   } as Mail.Options
   const transporter = createTransport({
     host: 'smtp.gmail.com',
