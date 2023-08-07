@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 interface InvoiceData {
   id: number
   pid: number
@@ -11,7 +13,9 @@ interface InvoiceData {
 export const notifyText = ({
   due,
   amnt_due,
-}: InvoiceData) => `This is a reminder that your next payment of ${amnt_due} to AssureX is due by ${due}.
+}: InvoiceData) => `This is a reminder that your next payment of ${amnt_due} to AssureX is due by ${moment(
+  due
+).format('YYYY-MM-DD')}.
 
 AssureX ( https://assurex.vercel.app )
 
@@ -23,7 +27,7 @@ Thanks for using AssureX. This is an invoice for your upcoming payment.
 
 Amount Due: ${amnt_due}
 
-Due By: ${due}
+Due By: ${moment(due).format('YYYY-MM-DD')}
 
 Pay Invoice at (https://assurex.vercel.app)
 
@@ -128,6 +132,7 @@ export const notifyHtml = ({
       font-size: 13px;
     }
     /* Utilities ------------------------------ */
+
     
     .align-right {
       text-align: right;
@@ -153,7 +158,7 @@ export const notifyHtml = ({
       border-bottom: 10px solid #3869D4;
       border-left: 18px solid #3869D4;
       display: inline-block;
-      color: #FFF;
+      color: #FFF !important;
       text-decoration: none;
       border-radius: 3px;
       box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
@@ -474,7 +479,9 @@ export const notifyHtml = ({
   <![endif]-->
   </head>
   <body>
-    <span class="preheader">This is a reminder that your next payment of ${amnt_due} to AssureX is due by ${due}</span>
+    <span class="preheader">This is a reminder that your next payment of ${amnt_due} to AssureX is due by ${moment(
+  due
+).format('YYYY-MM-DD')}</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
       <tr>
         <td align="center">
@@ -510,7 +517,7 @@ export const notifyHtml = ({
                                 <tr>
                                   <td class="attributes_item">
                                     <span class="f-fallback">
-              <strong>Due By:</strong> ${due}
+              <strong>Due By:</strong> ${moment(due).format('YYYY/MM/DD')}
             </span>
                                   </td>
                                 </tr>
