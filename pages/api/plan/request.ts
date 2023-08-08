@@ -19,7 +19,7 @@ interface ResData {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResData[]>
+  res: NextApiResponse<ResData[] | string>
 ) {
   const { method } = req
   switch (method) {
