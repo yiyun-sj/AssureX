@@ -76,7 +76,7 @@ export default function handler(
 ) {
   const { method, body } = req
   const { date } = body as ReqData
-  if (!isToday(new Date(date))) {
+  if (!isToday(moment(date).toDate())) {
     res.status(400).end(`Date ${date} has expired`)
     return
   }
