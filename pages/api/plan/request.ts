@@ -24,7 +24,7 @@ export default function handler(
   const { method } = req
   switch (method) {
     case 'OPTIONS':
-      res.status(200)
+      res.status(200).send('ok')
       break
     case 'POST':
       const { email, principal, name } = req.body as ReqData
