@@ -72,15 +72,18 @@ function isToday(date: Date) {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResData>
+  res: NextApiResponse<ResData | string>
 ) {
   const { method, body } = req
   const { date } = body as ReqData
-  if (!isToday(new Date(date))) {
+  if (!isToday(moment(date).toDate())) {
     res.status(400).end(`Date ${date} has expired`)
     return
   }
   switch (method) {
+    case 'OPTIONS':
+      res.status(200).send('ok')
+      break
     case 'POST':
       dbQuery(body).then((data) => {
         res.status(200).json(data)

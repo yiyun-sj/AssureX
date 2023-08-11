@@ -105,9 +105,13 @@ async function confirmPayment({ hash }: ReqData) {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResData>
+  res: NextApiResponse<ResData | string>
 ) {
   const { method, body } = req
+  if (method == 'OPTIONS') {
+    res.status(200).send('ok')
+    return
+  }
   if (method != 'POST') {
     res.setHeader('Allow', ['POST'])
     res.status(405).end(`Method ${method} Not Allowed`)

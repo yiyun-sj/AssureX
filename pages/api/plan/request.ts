@@ -24,10 +24,13 @@ const calcInterest = (APR: number, periods: number, principal: number) =>
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResData[]>
+  res: NextApiResponse<ResData[] | string>
 ) {
   const { method } = req
   switch (method) {
+    case 'OPTIONS':
+      res.status(200).send('ok')
+      break
     case 'POST':
       const { email, principal, name } = req.body as ReqData
       const resData: ResData[] = periods.map((period) => {
