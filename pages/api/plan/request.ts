@@ -2,6 +2,8 @@ import moment from 'moment'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const periods = [3, 6, 9, 12]
+const interest = 24 // %
+
 interface ReqData {
   email: string
   name: string
@@ -17,6 +19,9 @@ interface ResData {
   installments: number
 }
 
+const calcInterest = (APR: number, periods: number, principal: number) =>
+  principal * ((1 + APR / 100 / 12) ** periods - 1)
+
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResData[]>
@@ -31,8 +36,8 @@ export default function handler(
           name,
           date: moment().format('YYYY-MM-DD'),
           principal,
-          base: principal / period,
-          interest: 0,
+          base: calcInterest(interest, period, principal) / period,
+          interest,
           installments: period,
         }
       })
