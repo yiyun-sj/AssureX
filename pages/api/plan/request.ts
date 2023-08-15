@@ -20,7 +20,7 @@ interface ResData {
 }
 
 const calcInterest = (APR: number, periods: number, principal: number) =>
-  principal * ((1 + APR / 100 / 12) ** periods - 1)
+  principal * ((1 + APR / 100 / 12) ** periods)
 
 export default function handler(
   req: NextApiRequest,
