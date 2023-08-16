@@ -36,7 +36,7 @@ async function dbQuery({
     [[[email, name, moment(date).toDate(), principal, interest]]]
   )
   let values = []
-  for (let i = 1; i <= installments; i++) {
+  for (let i = 0; i < installments; i++) {
     values.push([
       (hdr as ResultSetHeader).insertId,
       email,
