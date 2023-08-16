@@ -55,18 +55,19 @@ async function dbQuery(
   const invoices = (
     await connection.query('SELECT * FROM `invoices` WHERE `pid` = ?', [pid])
   )[0] as InvoiceData[]
-  invoices.forEach(async (invoice) => {
-    if (amountTotal <= 0) return
-    if (invoice.fulfilled) return
+  for (let i = 0; i < invoices.length; i++) {
+    const invoice = invoices[i]
+    if (amountLeft <= 0) break
+    if (invoice.fulfilled) continue
     invoice.fulfilled = amountLeft >= invoice.amnt_due
     const subAmount = Math.min(amountLeft, invoice.amnt_due)
     amountLeft -= subAmount
     invoice.amnt_due -= subAmount
     await connection.query(
-      'UPDATE `invoices` SET amnt_due = ?, fulfilled = ? WHERE `pid` = ?',
-      [invoice.amnt_due, invoice.fulfilled, pid]
+      'UPDATE `invoices` SET amnt_due = ?, fulfilled = ? WHERE `id` = ?',
+      [invoice.amnt_due, invoice.fulfilled, invoice.id]
     )
-  })
+  }
 
   connection.end()
   return {
