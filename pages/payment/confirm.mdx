@@ -8,11 +8,12 @@ POST /api/payment/confirm
 
 **Request Object**
 
-| field |  type  |                              description |
-| :---- | :----: | ---------------------------------------: |
-| hash  | string |                     XRP transaction hash |
-| email | string | email of the user that created this plan |
-| pid   | number |             id of the corresponding plan |
+| field |  type  |                               description |
+| :---- | :----: | ----------------------------------------: |
+| hash  | string |                      XRP transaction hash |
+| email | string |  email of the user that created this plan |
+| pid   | number |              id of the corresponding plan |
+| rate  | number | current usd/XRP exchange rate (temporary) |
 
 **Response Object**
 
