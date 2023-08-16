@@ -2,11 +2,13 @@ import moment from 'moment'
 import 'mysql2'
 import { ResultSetHeader, createConnection } from 'mysql2/promise'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Client, Wallet } from 'xrpl'
+import { Client, Wallet, dropsToXrp } from 'xrpl'
+
 interface ReqData {
   hash: string
   email: string
   pid: number
+  rate: number
 }
 
 interface PayData {
@@ -40,7 +42,7 @@ const secs = moment('2000-01-01').unix() - moment.unix(0).unix()
 
 async function dbQuery(
   { date, origin, destination, amount }: PayData,
-  { email, pid }: ReqData
+  { email, pid, rate }: ReqData
 ) {
   const connection = await createConnection(process.env.DATABASE_URL)
   const [hdr] = await connection.query(
@@ -48,12 +50,13 @@ async function dbQuery(
     [[[pid, email, date, origin, destination, amount]]]
   )
 
-  let amountLeft = amount
+  const amountTotal = Math.floor(Number(dropsToXrp(amount)) * rate * 100)
+  let amountLeft = amountTotal
   const invoices = (
     await connection.query('SELECT * FROM `invoices` WHERE `pid` = ?', [pid])
   )[0] as InvoiceData[]
   invoices.forEach(async (invoice) => {
-    if (amount <= 0) return
+    if (amountTotal <= 0) return
     if (invoice.fulfilled) return
     invoice.fulfilled = amountLeft >= invoice.amnt_due
     const subAmount = Math.min(amountLeft, invoice.amnt_due)
