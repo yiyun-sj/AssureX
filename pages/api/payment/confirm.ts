@@ -61,7 +61,7 @@ async function dbQuery(
     invoice.amnt_due -= subAmount
     await connection.query(
       'UPDATE `invoices` SET amnt_due = ?, fulfilled = ? WHERE `pid` = ?',
-      [[[invoice.amnt_due, invoice.fulfilled, pid]]]
+      [invoice.amnt_due, invoice.fulfilled, pid]
     )
   })
 
