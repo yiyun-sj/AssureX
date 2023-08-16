@@ -39,7 +39,7 @@ export default function handler(
           name,
           date: moment().format('YYYY-MM-DD'),
           principal,
-          base: calcInterest(interest, period, principal) / period,
+          base: Math.ceil(calcInterest(interest, period, principal) / period),
           interest,
           installments: period,
         }
