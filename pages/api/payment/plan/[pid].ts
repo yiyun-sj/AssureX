@@ -17,7 +17,7 @@ interface ResData {
 async function dbQuery({ pid }: ReqData) {
   const connection = await createConnection(process.env.DATABASE_URL)
   const [data] = await connection.query(
-    'SELECT * FROM `payments` WHERE `pid` = ?',
+    'SELECT * FROM `payments` WHERE `pid` = ? ORDER BY date DESC',
     [pid]
   )
   connection.end()
