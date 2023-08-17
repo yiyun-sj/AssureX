@@ -13,23 +13,21 @@ interface InvoiceData {
 export const notifyText = ({
   due,
   amnt_due,
-}: InvoiceData) => `This is a reminder that your next payment of ${amnt_due} to AssureX is due by ${moment(
+}: InvoiceData) => `This is a reminder that your next AssureX payment is due by ${moment(
   due
 ).format('YYYY-MM-DD')}.
 
-AssureX ( https://assurex.vercel.app )
+AssureX ( https://assurex-demo.vercel.app/ )
 
 ----
-Hi,
+Hi!
 ----
 
 Thanks for using AssureX. This is an invoice for your upcoming payment.
 
-Amount Due: ${amnt_due}
-
 Due By: ${moment(due).format('YYYY-MM-DD')}
 
-Pay Invoice at (https://assurex.vercel.app)
+Pay Invoice at (https://assurex-demo.vercel.app/)
 
 If you have any questions about this invoice, simply reply to this email for help.
 
@@ -479,9 +477,9 @@ export const notifyHtml = ({
   <![endif]-->
   </head>
   <body>
-    <span class="preheader">This is a reminder that your next payment of ${amnt_due} to AssureX is due by ${moment(
-  due
-).format('YYYY-MM-DD')}</span>
+    <span class="preheader">This is a reminder that your next AssureX payment is due by ${moment(
+      due
+    ).format('YYYY-MM-DD')}</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
       <tr>
         <td align="center">
@@ -501,7 +499,7 @@ export const notifyHtml = ({
                   <tr>
                     <td class="content-cell">
                       <div class="f-fallback">
-                        <h1>Hi,</h1>
+                        <h1>Hi!</h1>
                         <p>Thanks for using AssureX. This is an invoice for your upcoming payment.</p>
                         <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                           <tr>
@@ -510,15 +508,10 @@ export const notifyHtml = ({
                                 <tr>
                                   <td class="attributes_item">
                                     <span class="f-fallback">
-              <strong>Amount Due:</strong> ${amnt_due}
-            </span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Due By:</strong> ${moment(due).format('YYYY/MM/DD')}
-            </span>
+                                      <strong>Due By:</strong> ${moment(
+                                        due
+                                      ).format('YYYY/MM/DD')}
+                                    </span>
                                   </td>
                                 </tr>
                               </table>
@@ -534,7 +527,7 @@ export const notifyHtml = ({
                               <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                 <tr>
                                   <td align="center">
-                                    <a href="https://assurex.vercel.app" class="f-fallback button button--green" target="_blank">Pay Invoice</a>
+                                    <a href="https://assurex-demo.vercel.app/" class="f-fallback button button--green" target="_blank">Pay Invoice</a>
                                   </td>
                                 </tr>
                               </table>
@@ -549,7 +542,7 @@ export const notifyHtml = ({
                           <tr>
                             <td>
                               <p class="f-fallback sub">If you're having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                              <p class="f-fallback sub">https://assurex.vercel.app</p>
+                              <p class="f-fallback sub">https://assurex-demo.vercel.app/</p>
                             </td>
                           </tr>
                         </table>
