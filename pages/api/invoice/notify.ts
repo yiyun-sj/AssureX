@@ -53,7 +53,6 @@ async function sendEmail(invoice: InvoiceData) {
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const invoices = await dbQuery()
-  console.log(invoices)
   await Promise.all(invoices.map(sendEmail))
   res.status(200).send('ok')
 }
