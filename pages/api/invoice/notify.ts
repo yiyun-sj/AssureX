@@ -20,7 +20,7 @@ async function dbQuery() {
   const connection = await createConnection(process.env.DATABASE_URL)
   const invoices = (
     await connection.query(
-      'SELECT * FROM `invoices` WHERE `due` = ? AND `fulfilled` = 0',
+      'SELECT * FROM `invoices` WHERE `due` <= ? AND `fulfilled` = 0',
       [moment().add(5, 'd').format('YYYY-MM-DD')]
     )
   )[0] as InvoiceData[]
@@ -39,7 +39,6 @@ async function sendEmail(invoice: InvoiceData) {
     text: notifyText(invoice),
     html: notifyHtml(invoice),
   } as Mail.Options
-  console.log(message)
   const transporter = createTransport({
     host: 'smtp.gmail.com',
     port: 587,
