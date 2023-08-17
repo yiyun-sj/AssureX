@@ -39,6 +39,7 @@ async function sendEmail(invoice: InvoiceData) {
     text: notifyText(invoice),
     html: notifyHtml(invoice),
   } as Mail.Options
+  console.log(message)
   const transporter = createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -48,12 +49,11 @@ async function sendEmail(invoice: InvoiceData) {
       pass: process.env.GMAIL_PASS,
     },
   })
-  const res = await transporter.sendMail(message)
-  console.log(res)
+  return await transporter.sendMail(message)
 }
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const invoices = await dbQuery()
-  await Promise.all(invoices.map(sendEmail))
+  console.log(await Promise.all(invoices.map(sendEmail)))
   res.status(200).send('ok')
 }
