@@ -48,11 +48,12 @@ async function sendEmail(invoice: InvoiceData) {
       pass: process.env.GMAIL_PASS,
     },
   })
-  await transporter.sendMail(message)
+  const res = await transporter.sendMail(message)
+  console.log(res)
 }
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const invoices = await dbQuery()
   invoices.forEach(sendEmail)
-  res.status(200)
+  res.status(200).send('ok')
 }

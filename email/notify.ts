@@ -12,7 +12,6 @@ interface InvoiceData {
 
 export const notifyText = ({
   due,
-  amnt_due,
 }: InvoiceData) => `This is a reminder that your next AssureX payment is due by ${moment(
   due
 ).format('YYYY-MM-DD')}.
@@ -23,7 +22,7 @@ AssureX ( https://assurex-demo.vercel.app/ )
 Hi!
 ----
 
-Thanks for using AssureX. This is an invoice for your upcoming payment.
+Thanks for using AssureX. This is a reminder for your upcoming payment.
 
 Due By: ${moment(due).format('YYYY-MM-DD')}
 
@@ -36,7 +35,6 @@ The AssureX team`
 
 export const notifyHtml = ({
   due,
-  amnt_due,
 }: InvoiceData) => `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -500,7 +498,7 @@ export const notifyHtml = ({
                     <td class="content-cell">
                       <div class="f-fallback">
                         <h1>Hi!</h1>
-                        <p>Thanks for using AssureX. This is an invoice for your upcoming payment.</p>
+                        <p>Thanks for using AssureX. This is a reminder for your upcoming payment.</p>
                         <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                           <tr>
                             <td class="attributes_content">
